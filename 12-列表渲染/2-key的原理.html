@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>人员列表</h2>
+        <ul>
+            <li v-for="(p, index) in persons" :key="index">
+                {{ p.name }} - {{ p.age }}
+                <input type="text">
+            </li>
+        </ul>
+        <button @click.once="add">添加一个人</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        // 创建一个 Vue 实例
+        new Vue({
+            el: '#root',  // el 用于指定这一个 Vue 实例为哪一个容器服务，值通常为 css 的选择器字符串
+            data: {
+                // 有顺序的数据用数组
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '李四', age: 19 },
+                    { id: '003', name: '王五', age: 20 }
+                ]
+            },
+            methods: {
+                add() {
+                    const p = { id: '004', name: '小三', age: 23}
+                    this.persons.unshift(p)
+                }
+            },
+        })
+    </script>
+</body>
+</html>

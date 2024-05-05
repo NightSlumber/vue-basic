@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 数据代理：将一个对象中的属性交给另一个对象
+        let obj1 = {x: 100}
+        let obj2 = {y: 200}
+
+        Object.defineProperty(obj2, 'x', {
+            get() {
+                console.log('我访问了obj1中的x哦~')
+                return obj1.x
+            },
+            set(value) {
+                console.log('我修改了obj1中的x哦~')
+                obj1.x = value
+            }
+        })
+    </script>
+</body>
+</html>

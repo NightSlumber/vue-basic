@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <hello></hello>
+            <hr>
+            <h1>{{ msg }}</h1>
+            <hr>
+            <school></school>
+            <hr>  <!-- hr 不属于组件中的内容 -->
+            <student></student>
+            <!-- <student></student> -->
+        </div>
+
+        <div id="root2">
+            <hello></hello>
+        </div>
+    </body>
+
+    <script>
+        // 创建 school 组件
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h2>学校名称：{{ schoolName }}</h2>
+                    <h2>学校地址：{{ address }}</h2>
+                    <button @click="showName">点我提示学校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    schoolName: '家里蹲',
+                    address: 'home'
+                }
+            },
+            methods: {
+                showName() {
+                    alert(this.schoolName)
+                }
+            },
+        })
+
+        // 创建 student 组件
+        const student = Vue.extend({
+            template: `
+                <div>
+                    <h2>学生姓名：{{ studentName }}</h2>
+                    <h2>学生年龄：{{ age }}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    studentName: '张三',
+                    age: 18
+                }
+            }
+        })
+
+        // 1. 创建 hello 组件
+        const hello = Vue.extend({
+            template: `
+                <div>
+                    <h2>你好,{{ name }}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    name: '张三'
+                }
+            }
+        })
+
+        // 全局注册组件，第一个参数是 真正要用的组件名，第二个参数是创建的组件名
+        Vue.component('hello', hello)
+
+        // 创建 vm
+        new Vue({
+            el: '#root',
+            data: {
+                msg: '你好呀'
+            },
+            // 局部注册组件
+            components: {
+                // key 是真正的组件名, value 是指哪个组件,就是一个中转的变量
+                // school: school
+                school,
+                student
+            }
+        })
+
+        new Vue({
+            el: '#root2',
+            components: {
+                student
+            }
+        })
+    </script>
+</html>

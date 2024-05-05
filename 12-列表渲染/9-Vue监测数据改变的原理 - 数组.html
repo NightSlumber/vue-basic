@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <div id="root">
+        <h2>学校名称：{{ name }}</h2>
+        <h2>学校地址：{{ address }}</h2>
+        <hr>
+        <button @click="addGender">点我添加性别属性，默认为男</button>
+        <h2>学生姓名：{{ student.name }}</h2>
+        <h2 v-if="student.gender">学生姓别：{{ student.gender }}</h2>
+        <h2>学生年龄：真 {{ student.age.rAge }} 假 {{ student.age.fAge }}</h2>
+
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f, index) in student.friends" :key="index">
+                {{ f.name }} - {{ f.age }}
+            </li>
+        </ul>
+
+        <h2>爱好</h2>
+        <ul>
+            <li v-for="(h, index) in student.hobby" :key="index">
+                {{ h }}
+            </li>
+        </ul>
+    </div>
+    
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: '家里蹲',
+                address: 'home',
+                student: {
+                    name: 'Tom',
+                    age: {
+                        rAge: 28,
+                        fAge: 18
+                    },
+                    hobby: [
+                        '吃',
+                        '喝',
+                        '睡'
+                    ],
+                    friends: [
+                        { name: 'jerry', age: 35 },
+                        { name: 'tony', age: 25 }
+                    ]
+                }
+            },
+            methods: {
+                addGender() {
+                    // Vue.set(this.student, 'gender', '男')
+                    this.$set(this.student, 'gender', '男')
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+
+

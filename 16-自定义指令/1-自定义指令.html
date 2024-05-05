@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2>当前的 n 值是： <span v-text="n"></span> </h2>
+            <h2>10 * n 值是： <span v-big="n"></span> </h2>
+            <button @click="++n">点我 ++n</button>
+            
+            <hr>
+
+            <!-- <input type="text" v-bind:value="n"> -->
+            <input type="text" v-fbind:value="n">
+        </div>
+
+        <div id="root2">
+            <input type="text" v-fbind2:value="x">
+        </div>
+    </body>
+
+    <script>
+        Vue.directive('fbind2', {
+            bind(element, binding) {
+                // console.log('bind()')
+                element.value = binding.value
+            },
+            inserted(element, binding) {
+                // console.log('inserted()')
+                element.focus()
+            },
+            update(element, binding) {
+                // console.log('update()')
+                element.value = binding.value
+                element.focus()
+            }
+        })
+
+        Vue.directive('big2', function(element, binding) {
+            element.innerText = binding.value * 10
+        })
+
+        new Vue({
+            el: '#root',
+            data: {
+                n: 1
+            },
+            directives: {
+                big(element, binding) {
+                    element.innerText = binding.value * 10
+                },
+                fbind: {
+                    bind(element, binding) {
+                        // console.log('bind()')
+                        element.value = binding.value
+                    },
+                    inserted(element, binding) {
+                        // console.log('inserted()')
+                        element.focus()
+                    },
+                    update(element, binding) {
+                        // console.log('update()')
+                        element.value = binding.value
+                        element.focus()
+                    }
+                }
+            }
+        })
+
+        new Vue({
+            el: '#root2',
+            data: {
+                x: 1
+            }
+        })
+    </script>
+</html>

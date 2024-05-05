@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>今天天气很{{ info}}</h2>
+        <button @click="changeWeather">点我切换天气情况</button>
+        <br>
+        <h3>a的值是:{{ numbers.a }}</h3>
+        <button @click="++numbers.a">点我++a</button>  <!-- 当点击这个元素时，++a -->
+        <h3>b的值是:{{ numbers.b }}</h3>
+        <button @click="++numbers.b">点我++b</button>
+        <!-- <button @click="numbers = {a: 1, b: 1}">改变numbers</button> -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+        
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                numbers: {
+                    a: 1,
+                    b: 1
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot
+                }
+            },
+            watch: {
+                // isHot是简写方式
+                isHot: {
+                    handler(newValue, oldValue) {
+                        console.log("isHot被修改了", newValue, oldValue)
+                    }
+                },
+                // 监视多级结构中的属性的变化
+                // 'numbers.a': {
+                //     handler() {
+                //         console.log('++a了')
+                //     }
+                // }
+
+                numbers: {
+                    deep: true,  // 深入到对象的内部，即使对象的地址没变，里面的值发生改变即算变动
+                    handler() {
+                        console.log('numbers被修改')
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

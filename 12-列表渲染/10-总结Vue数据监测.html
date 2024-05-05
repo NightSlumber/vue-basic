@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <div id="root">
+        <h1>学生信息</h1>
+        <button @click="++student.age">年龄 +1 岁</button> <br>
+        <button @click="addGender">添加性别属性，默认值为男</button> <br>
+        <button @click="student.gender = '未知'">修改性别</button> <br>
+        <button @click="addFriend">在列表首位添加一个朋友</button> <br>
+        <button @click="updateFirstFriendName">修改第一个朋友的名字为“张三”</button> <br>
+        <button @click="addHobby">添加一个爱好</button> <br>
+        <button @click="updateFirstHobby">修改第一个爱好为“开车”</button> <br>
+        <button @click="removeSleep">过滤掉爱好中的“睡”</button> <br>
+
+        <h3>姓名：{{ student.name }}</h3>
+        <h3>年龄：{{ student.age }}</h3>
+        <h3 v-if="student.gender">性别：{{ student.gender }}</h3>
+        <h3>爱好：</h3>
+        <ul>
+            <li v-for="(h, index) in student.hobby" :key="index">
+                {{ h }}
+            </li>
+        </ul>
+
+        <h3>朋友们：</h3>
+        <ul>
+            <li v-for="(f, index) in student.friends" :key="index">
+                {{ f.name }} - {{ f.age }}
+            </li>
+        </ul>
+    </div>
+    
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                student: {
+                    name: 'Tom',
+                    age: 18,
+                    hobby: [ '吃', '喝', '睡' ],
+                    friends: [
+                        { name: 'jerry', age: 35 },
+                        { name: 'tony', age: 25 }
+                    ]
+                }
+            },
+            methods: {
+                addGender() {
+                    // Vue.set(this.student, 'gender', '男')
+                    this.$set(this.student, 'gender', '男')
+                },
+                addFriend() {
+                    this.student.friends.unshift({ name: 'jack', age: 70 })
+                },
+                updateFirstFriendName() {
+                    this.student.friends[0].name = "张三"
+                    this.student.friends[0].age = 3
+                },
+                addHobby() {
+                    this.student.hobby.push('玩')
+                },
+                updateFirstHobby() {
+                    // 从第 0 个开始，删除 1 个，插入一个新的字符串
+                    // this.student.hobby.splice(0, 1, "开车")
+                    // Vue.set(this.student.hobby, 0, "开车")
+                    this.$set(this.student.hobby, 0, "开车")
+                },
+                removeSleep() {
+                    this.student.hobby = this.student.hobby.filter((h) => {
+                        return h !== '睡'
+                    })
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+
+

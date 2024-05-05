@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <school></school>
+        </div>
+    </body>
+
+    <script>
+        Vue.prototype.x = 99
+
+        // 定义 school 组件
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h2>学校名称：{{ name }}</h2>
+                    <h2>学校地址：{{ address }}</h2>
+                    <button @click="showX">点我输出 x</button>
+                </div>
+            `,
+            data() {
+                return {
+                    name: '家里蹲',
+                    address: 'home'
+                }
+            },
+            methods: {
+                showX() {
+                    console.log(this.x)
+                }
+            },
+        })
+
+        // 创建一个 vm
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                msg: '你好'
+            },
+            components: {
+                school
+            }
+        })
+
+        // console.log(school.prototype.__proto__ === Vue.prototype)
+
+        // 定义一个构造函数
+        // function Demo() {
+        //     this.a = 1
+        //     this.b = 2
+        // }
+
+        // // 创建一个 Demo 的实例对象
+        // const d = new Demo()
+        
+        // console.log(Demo.prototype)  // 显示原型属性
+
+        // console.log(d.__proto__)  // 实例身上的“隐式原型属性”
+
+        // // 构造函数身上有 prototype 这个属性，叫做“显示原型属性”。通过这个就能操作“原型对象”了
+        // // 这里是添加了一个 x 属性，值为 99
+        // Demo.prototype.x = 99
+
+        // console.log('@', d)
+    </script>
+</html>

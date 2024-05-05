@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <style>
+        .basic {
+            width: 400px;
+            height: 100px;
+            border: 2px solid black;
+        }
+
+        .red {
+            background-color: #FDE6E0;
+        }
+        .green {
+            background-color: #C7EDCC;
+        }
+        .blue {
+            background-color: #DCE2F1;
+        }
+
+        .font {
+            font-size: 30px;
+        }
+        .font-blue {
+            color: blue;
+        }
+        .italic {
+            font-style: italic
+        }
+    </style>
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <!-- :class 绑定class样式 -->
+        <div class="basic" :class="c" @click="changeColor">1 {{ name }}</div>
+        <br><br>
+        <div class="basic" :class="arr">2 {{ name }}</div>
+        <br><br>
+        <div class="basic" :class="object">3 {{ name }}</div>
+        <br><br>
+        <div class="basic" :style="styleObj">4 {{ name }}</div>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        // 创建一个 Vue 实例
+        const vm = new Vue({
+            el: '#root',  // el 用于指定这一个 Vue 实例为哪一个容器服务，值通常为 css 的选择器字符串
+            data: {
+                name: '夜寐',
+                c: 'red',
+                arr: ['font', 'font-blue', 'italic'],
+                object: {
+                    font: false,
+                    'font-blue': false
+                },
+                styleObj: {
+                    fontSize: '40px',
+                    backgroundColor: 'orange'
+                }
+            },
+            methods: {
+                changeColor() {
+                    const arr = ['red', 'green', 'blue']
+
+                    // Math.random() 生成[0, 1)中任意一个浮点数
+                    // Math.floor() 向下取整
+                    const index = Math.floor(Math.random() * 3)
+                    this.c = arr[index]
+                    console.log('改变了')
+                }
+            },
+        })
+    </script>
+</body>
+</html>

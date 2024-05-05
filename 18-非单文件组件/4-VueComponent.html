@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <school></school>
+            <hello></hello>
+        </div>
+    </body>
+
+    <script>
+        // 定义 school 组件
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h2>学校名称：{{ name }}</h2>
+                    <h2>学校地址：{{ address }}</h2>
+                    <button @click="showName">点我提示学校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    name: '家里蹲',
+                    address: 'home'
+                }
+            },
+            methods: {
+                showName() {
+                    // alert(this.name)
+                    console.log('showName', this)
+                }
+            },
+        })
+
+        const child = Vue.extend({
+            template: ` <span>我是小弟弟</span> `
+        })
+
+        const hello = Vue.extend({
+            template: `
+                <div>
+                    <h1>{{ msg }}</h1>
+                    <child></child>
+                </div>
+            `,
+            data() {
+                return {
+                    msg: '你好呀'
+                }
+            },
+            components: {
+                child
+            }
+        })
+
+        // console.log(school === hello)
+        // console.log('@', school)
+        // console.log('#', hello)
+
+        const vm = new Vue({
+            el: '#root',
+            components: {
+                school,
+                hello
+            }
+        })
+    </script>
+</html>

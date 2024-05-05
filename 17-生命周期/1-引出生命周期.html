@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h2 v-if="flag">你好呀</h2>
+            <!-- opacity 为对象的简写形式，是 js 表达式中的内容-->
+            <h2 :style="{ opacity }">欢迎学习 Vue！</h2>
+        </div>
+    </body>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                flag: false,
+                opacity: 1
+            },
+            methods: {
+                
+            },
+            // Vue 完成以下操作：解析模版，变成 虚拟DOM，变成 真实DOM，把初始的真实DOM放入页面后调用mounted()
+            // 也就是挂载完毕后调用这个mounted()
+            mounted() {
+                console.log('mounted()')
+                setInterval(() => {
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0) {
+                        this.opacity = 1
+                    }
+                }, 16)
+            },
+        })
+
+        // 外部定时器实现，不推荐
+        // setInterval(() => {
+        //     vm.opacity -= 0.01
+        //     if (vm.opacity <= 0) {
+        //         vm.opacity = 1
+        //     }
+        // }, 16)
+    </script>
+</html>

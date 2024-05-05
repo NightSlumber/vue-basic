@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        姓：<input type="text" v-model="firstName">
+        <br><br>
+        名：<input type="text" v-model="lastName">
+        <br><br>
+        姓名：<span>{{ name }}</span>
+        <!-- <br><br>
+        姓名：<span>{{ name }}</span>
+        <br><br>
+        姓名：<span>{{ name }}</span>
+        <br><br>
+        姓名：<span>{{ name }}</span>
+        <br><br>
+        姓名：<span>{{ name }}</span>
+        <br><br> -->
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        // 创建一个 Vue 实例
+        const vm = new Vue({
+            el: '#root',  // el 用于指定这一个 Vue 实例为哪一个容器服务，值通常为 css 的选择器字符串
+            data: {
+                firstName: '张',
+                lastName: '三'
+            },
+            computed: {
+                name: {
+                    // 当有人读这个对象时，get()就会被调用，返回值就是对象的值
+                    // 当值被修改时，get()自动调用
+                    get() {
+                        console.log('get()...')
+                        return this.firstName + '-' + this.lastName
+                    },
+                    // 当有人修改这个对象时，set(value)就会被调用，将修改的值传入value
+                    set(value) {
+                        console.log('set()...', value)
+                        const arr = value.split('-')  // 放入字符串数组中
+                        this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

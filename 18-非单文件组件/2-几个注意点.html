@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>标题</title>
+        <script src="../js/vue2/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>{{ msg }}</h1>
+            <!-- <school></school>
+            <school></school>
+            <school></school> -->
+            <school/>
+            <school/>
+            <school/>
+        </div>
+    </body>
+
+    <script>
+        // 1. 定义组件
+        const s = {
+            // name: '真的吗',
+            template: `
+                <div>
+                    <h2>学校名称：{{ name }}</h2>
+                    <h2>学校地址：{{ address }}</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    name: '家里蹲',
+                    address: 'home'
+                }
+            }
+        }
+
+        // const s = Vue.extend({
+        //     // name: '真的吗',
+        //     template: `
+        //         <div>
+        //             <h2>学校名称：{{ name }}</h2>
+        //             <h2>学校地址：{{ address }}</h2>
+        //         </div>
+        //     `,
+        //     data() {
+        //         return {
+        //             name: '家里蹲',
+        //             address: 'home'
+        //         }
+        //     }
+        // })
+
+        new Vue({
+            el: '#root',
+            data: {
+                msg: '你好呀'
+            },
+
+            // 2. 注册组件
+            components: {
+                // 在 js 的语法中，key 中如果包含 - ，那么要包上引号
+                school: s
+            }
+        })
+    </script>
+</html>

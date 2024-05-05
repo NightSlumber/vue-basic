@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>我今天晚上吃{{ name }}</h2>
+        <!-- <button v-on:click="showInfo">点我提示信息</button> -->
+        <button @click="showInfo1">点我提示信息1</button>
+        <button @click="showInfo2(1234, $event)">点我提示信息2</button>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        // 创建一个 Vue 实例
+        new Vue({
+            el: '#root',  // el 用于指定这一个 Vue 实例为哪一个容器服务，值通常为 css 的选择器字符串
+            data: {
+                name: 'hamburg',
+
+                // 不要写在这里，方法不需要数据代理
+                showInfo2(num, e) {
+                    console.log(num, e)
+                }
+            },
+            // methods 中不做数据
+            methods: {
+                // showInfo: (event) => {
+                //     // alert("好吃吗？")
+                //     // console.log(event.target.innerText)
+                //     console.log(this)  // this is Window
+                // }
+                showInfo1(event) {
+                    alert("好吃吗？")
+                    // console.log(event.target.innerText)
+                    // console.log(this)  // this is vm
+                },
+                
+            }
+        })
+    </script>
+</body>
+</html>

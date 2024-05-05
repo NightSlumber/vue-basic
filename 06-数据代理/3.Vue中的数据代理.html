@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue2/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>学校名称：{{ name }}</h2>
+        <h2>学校地址：{{ address }}</h2>
+    </div>
+
+    <!-- <script>
+        let data = {
+            name: '家里蹲',
+            address: 'home'
+        }
+        const vm = new Vue({
+            el: '#root',
+            data
+        })
+    </script> -->
+
+    <script>
+        let data = {
+            
+        }
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: '家里蹲',
+                address: 'home'
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <ul>
+            <li v-for="(p, index) in filPersons" :key="p.id">
+                {{ p.name }} - {{ p.age }} - {{ p.gender }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        // 用 watch 实现
+        //#region 
+        // new Vue({
+        //     el: '#root',  // el 用于指定这一个 Vue 实例为哪一个容器服务，值通常为 css 的选择器字符串
+        //     data: {
+        //         keyWord: '',
+        //         persons: [
+        //             { id: '001', name: '小白兔', age: 18, gender: "母"},
+        //             { id: '002', name: '小灰猫', age: 19, gender: "公"},
+        //             { id: '003', name: '大灰狗', age: 20, gender: "公"},
+        //             { id: '004', name: '母黑狗', age: 4, gender: "母"}
+        //         ],
+        //         filPersons: []
+        //     },
+        //     watch: {
+        //         keyWord: {
+        //             immediate: true,
+        //             handler(value) {
+        //                 // filter 会将符合条件的数据过滤出来
+        //                 this.filPersons = this.persons.filter((p) => {
+        //                     return p.name.indexOf(value) !== -1  // 返回布尔值
+        //                 })
+        //             }
+        //         }
+        //     }
+        // })
+        //#endregion
+
+        // 用 computed 实现
+        new Vue({
+            el: '#root',
+            data: {
+                keyWord: '',
+                persons: [
+                    { id: '001', name: '小白兔', age: 18, gender: "母"},
+                    { id: '002', name: '小灰猫', age: 19, gender: "公"},
+                    { id: '003', name: '大灰狗', age: 20, gender: "公"},
+                    { id: '004', name: '母黑狗', age: 4, gender: "母"}
+                ]
+            },
+            computed: {
+                filPersons() {
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

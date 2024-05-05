@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>人员列表</h2>
+        <button @click="updateRabbit">更新小白兔的信息</button>
+        <ul>
+            <li v-for="(p, index) in persons" :key="p.id">
+                {{ p.name }} - {{ p.age }} - {{ p.gender }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                // persons 是一个对象数组
+                persons: [
+                    { id: '001', name: '小白兔', age: 28, gender: "母"},
+                    { id: '002', name: '小灰猫', age: 198, gender: "公"},
+                    { id: '003', name: '大灰狗', age: 20, gender: "公"},
+                    { id: '004', name: '母黑狗', age: 4, gender: "母"}
+                ]
+            },
+            methods: {
+                updateRabbit() {
+                    // 一个个改的成功
+                    // this.persons[0].name = '大白兔',
+                    // this.persons[0].age = 50,
+                    // this.persons[0].gender = '公'
+
+                    // this.persons[0] = { id: '001', name: '大白兔', age: 50, gender: "公"}
+                    this.persons.splice(0, 1, { id: '001', name: '大白兔', age: 50, gender: "公"})
+                }
+            },
+        })
+    </script>
+</body>
+</html>

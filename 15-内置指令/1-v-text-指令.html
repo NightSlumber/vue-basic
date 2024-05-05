@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>
+<body>
+    <div id="root">
+        <div>{{ str }}</div>
+        <div v-text="str"></div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                str: '<h2>你好</h2>'
+            }
+        })
+    </script>
+</body>
+</html>

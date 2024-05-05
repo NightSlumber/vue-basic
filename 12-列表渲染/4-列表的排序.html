@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标题</title>
+
+    <script src="../js/vue2/vue.js"></script>  <!-- 引入 Vue -->
+<body>
+    <!-- 写一个容器 -->
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入名字" v-model="keyWord">
+        <button @click="sortType = 2">年龄升序</button>
+        <button @click="sortType = 1">年龄降序</button>
+        <button @click="sortType = 0">原顺序</button>
+
+        <ul>
+            <!-- 破坏顺序后，:key的值就得是 id，这方法节点复用率高，效率高 -->
+            <li v-for="(p, index) in filPersons" :key="p.id">
+                {{ p.name }} - {{ p.age }} - {{ p.gender }}
+                <input type="text">
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false  // 设置为 false 以阻止 vue 在启动时生成生产提示。
+
+        new Vue({
+            el: '#root',
+            data: {
+                keyWord: '',
+                sortType: 0,  // 0 原顺序，1 降序，2 升序
+                persons: [
+                    { id: '001', name: '小白兔', age: 28, gender: "母"},
+                    { id: '002', name: '小灰猫', age: 198, gender: "公"},
+                    { id: '003', name: '大灰狗', age: 20, gender: "公"},
+                    { id: '004', name: '母黑狗', age: 4, gender: "母"}
+                ]
+            },
+            computed: {
+                filPersons() {
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1
+                    })
+                    
+                    // 判断是否需要依靠年龄排序
+                    if (this.sortType) {
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p2.age - p1.age : p1.age - p2.age
+                        })
+                    }
+                    return arr
+                }
+            }
+        })
+    </script>
+</body>
+</html>
